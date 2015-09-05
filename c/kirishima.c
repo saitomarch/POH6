@@ -15,7 +15,7 @@ static void removeReturnCode(char *str) {
 
 /// 文字列を元に整数型の配列を生成する
 /// @param str 文字列
-/// @param dst 対象の配列へのポインタ
+/// @param arr 対象の配列へのポインタ
 /// @param size 配列のサイズ
 static void separateStringToArray(const char *str, int *arr, size_t size) {
     char *tempStr = (char *)calloc(sizeof(char), BUFFER_SIZE);
@@ -40,7 +40,7 @@ int main(void){
     if (numOfCells < minCells || maxCells < numOfCells) {
         return EXIT_FAILURE;
     }
-    
+
     // マスを生成する
     fgets(str, BUFFER_SIZE, stdin);
     removeReturnCode(str);
@@ -51,10 +51,10 @@ int main(void){
     for (int idx = 0; idx < numOfCells; idx++) {
         if ( ( (idx == 0 || idx == (numOfCells - 1) ) && cells[idx] != 0) ||
             (cells[idx] < minCellNum || maxCellNum < cells[idx]) ) {
-                return EXIT_FAILURE;
+            return EXIT_FAILURE;
         }
     }
-    
+
     // 出目の回数を取得する
     fgets(str, BUFFER_SIZE, stdin);
     removeReturnCode(str);
@@ -64,10 +64,10 @@ int main(void){
     if (acts < minActs || maxActs < acts) {
         return EXIT_FAILURE;
     }
-    
+
     const int minActNum = 1;
     const int maxActNum = 100;
-    
+
     // 出目を回し、結果を出力する
     for (int count = 0; count < acts; count++) {
         fgets(str, BUFFER_SIZE, stdin);
@@ -76,19 +76,24 @@ int main(void){
         if (num < minActNum || maxActNum < num) {
             return EXIT_FAILURE;
         }
-        
+
+        // 移動ログ(無限ループ判定に使用する)
         int moveLog[BUFFER_SIZE] = {0};
         _Bool finished = false;
         while (true) {
             if (num == goal) {
+                // ゴールについた場合
                 finished = true;
                 break;
             }else if (num < 1 || goal < num) {
+                // ゴールを越えた、あるいはスタート地点に戻ったりした場合
                 finished = false;
                 break;
             }else{
+                // それ以外
                 int moves = cells[num];
                 if (moves == 0) {
+                    // これ以上動けない場合
                     finished = false;
                     break;
                 }else{
@@ -97,6 +102,7 @@ int main(void){
                     int idx;
                     for (idx = 0; idx < BUFFER_SIZE && moveLog[idx] != 0; idx++) {
                         if (num == moveLog[idx]) {
+                            // 過去に行ったことのあるマスだった場合は無限ループに陥ったとみなしてゲームオーバー
                             infinity = true;
                             break;
                         }
@@ -110,7 +116,7 @@ int main(void){
                 }
             }
         }
-        
+
         if (finished) {
             puts("Yes");
         }else{
@@ -120,4 +126,3 @@ int main(void){
 
     return EXIT_SUCCESS;
 }
-
