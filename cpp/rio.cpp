@@ -50,6 +50,7 @@ public:
     }
 
     /// 濃度を取得する
+    /// @param asPercent パーセントとして取得するかどうか。デフォルトはfalse。
     /// @return 濃度
     template <typename T> T getConsentration(bool asPercent = false) {
         float consentration = _powder / getTotal();
