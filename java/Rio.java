@@ -1,48 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-/// コーヒーを定義する
-class Coffee {
-    /// コーヒー粉
-    private float _powder = 0.0f;
-    /// 湯
-    private float _water = 0.0f;
-
-    /// 合計を取得する
-    /// @return コーヒー粉と湯の合計値
-    public float getTotal() {
-        return _powder + _water;
-    }
-
-    /// コーヒー粉を入れる
-    /// @param quantity コーヒー粉の量
-    public void addPowder(float quantity) {
-        _powder += quantity;
-    }
-
-    /// 湯を入れる
-    /// @param quantity 湯の量
-    public void addWater(float quantity) {
-        _water += quantity;
-    }
-
-    /// 味見する
-    /// @param quantity 味見するコーヒーの量
-    public void taste(float quantity) {
-        float total = getTotal();
-        _powder -= quantity * _powder / total;
-        _water -= quantity * _water / total;
-    }
-
-    /// 濃度を取得する
-    /// @param asPercent パーセント形式で取得するかどうか
-    /// @return 濃度
-    public float getConsentration(boolean asPercent) {
-        float consentration = _powder / getTotal();
-        return consentration * (asPercent ? 100.0f : 1.0f);
-    }
-}
-
 // 注意: paizaオンラインハッカソンでテストする場合はRioをMainに変更してください。
 public class Rio {
     public static void main(String[] args) throws Exception {
@@ -102,5 +60,47 @@ public class Rio {
             }
         }
         System.out.println((int)coffee.getConsentration(true));
+    }
+}
+
+/// コーヒーを定義する
+class Coffee {
+    /// コーヒー粉
+    private float _powder = 0.0f;
+    /// 湯
+    private float _water = 0.0f;
+
+    /// 合計を取得する
+    /// @return コーヒー粉と湯の合計値
+    public float getTotal() {
+        return _powder + _water;
+    }
+
+    /// コーヒー粉を入れる
+    /// @param quantity コーヒー粉の量
+    public void addPowder(float quantity) {
+        _powder += quantity;
+    }
+
+    /// 湯を入れる
+    /// @param quantity 湯の量
+    public void addWater(float quantity) {
+        _water += quantity;
+    }
+
+    /// 味見する
+    /// @param quantity 味見するコーヒーの量
+    public void taste(float quantity) {
+        float total = getTotal();
+        _powder -= quantity * _powder / total;
+        _water -= quantity * _water / total;
+    }
+
+    /// 濃度を取得する
+    /// @param asPercent パーセント形式で取得するかどうか
+    /// @return 濃度
+    public float getConsentration(boolean asPercent) {
+        float consentration = _powder / getTotal();
+        return consentration * (asPercent ? 100.0f : 1.0f);
     }
 }
