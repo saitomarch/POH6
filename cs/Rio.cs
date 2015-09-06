@@ -44,8 +44,7 @@ class Coffee {
 
 public class Rio {
     public static void Main() {
-        // 自分の得意な言語で
-        // Let's チャレンジ！！
+        // 処理行数を取得する
         var lines = int.Parse(System.Console.ReadLine());
         const int minLines = 1;
         const int maxLines = 10;
