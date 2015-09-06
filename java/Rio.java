@@ -37,7 +37,7 @@ class Coffee {
     /// 濃度を取得する
     /// @param asPercent パーセント形式で取得するかどうか
     /// @return 濃度
-    float getConsentration(boolean asPercent) {
+    public float getConsentration(boolean asPercent) {
         float consentration = _powder / getTotal();
         return consentration * (asPercent ? 100.0f : 1.0f);
     }

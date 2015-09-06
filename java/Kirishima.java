@@ -21,18 +21,16 @@ public class Kirishima {
             throw new RuntimeException("The value of number of cells and cells length do not match.");
         }
         int[] cells = new int[numOfCells];
-        for (int idx = 0; idx < numOfCells; idx++) {
-            cells[idx] = Integer.parseInt(cellsString[idx]);
-        }
         final int minCellNum = -100;
         final int maxCellNum = 100;
-        for (int cell : cells) {
-            if (cell < minCellNum || maxCellNum < cell) {
+        for (int idx = 0; idx < numOfCells; idx++) {
+            int cellNum =  Integer.parseInt(cellsString[idx]);
+            if (cellNum < minCellNum || maxCellNum < cellNum) {
                 throw new RuntimeException("The value of cell must be " + minCellNum + "..." + maxCellNum + ".");
+            }else if((idx == 0 || idx == numOfCells - 1) && cellNum != 0) {
+                throw new RuntimeException("The value of first cell and/or last cell must be 0.");
             }
-        }
-        if (cells[0] != 0 || cells[cells.length - 1] != 0) {
-            throw new RuntimeException("The value of first cell and/or last cell must be 0.");
+            cells[idx] = cellNum;
         }
 
         // 出目数を出力する

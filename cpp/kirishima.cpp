@@ -23,7 +23,7 @@ int main(){
     // マスの数を取得する
     string numOfCellsString;
     getline(cin, numOfCellsString);
-    auto numOfCells = stoi(numOfCellsString);
+    const auto numOfCells = stoi(numOfCellsString);
     const auto minNumOfCells = 2;
     const auto maxNumOfCells = 100;
     if (numOfCells < minNumOfCells || maxNumOfCells < numOfCells) {
@@ -39,18 +39,16 @@ int main(){
         throw "The input value of cells and size of cells do not match.";
     }
     vector<int> cells;
-    for (auto cell : tempCells) {
-        cells.push_back(stoi(cell));
-    }
     const auto minCellNum = -100;
     const auto maxCellNum = 100;
-    for (auto cell : cells) {
-        if (cell < minCellNum || maxCellNum < cell) {
+    for (int idx = 0; idx < numOfCells; idx++) {
+        auto cellNum = stoi(tempCells[idx]);
+        if (cellNum < minCellNum || maxCellNum < cellNum) {
             throw "The value of cell must be " + to_string(minCellNum) + "..." + to_string(maxCellNum) + ".";
+        }else if((idx == 0 || idx == numOfCells - 1) && cellNum != 0) {
+            throw "The value of first cell and/or last cell must be 0.";
         }
-    }
-    if (cells.front() != 0 || cells.back() != 0) {
-        throw "The value of first cell and/or last cell must be 0.";
+        cells.push_back(cellNum);
     }
 
     // 出目数を取得する
