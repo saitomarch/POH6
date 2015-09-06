@@ -71,6 +71,10 @@ int main(void){
     removeReturnCode(linesStr);
     int lines = atoi(linesStr);
     
+    // 量の閾値
+    const int minQuantity = 1;
+    const int maxQuantity = 100;
+    
     // コーヒーを生成する
     Coffee coffee = CoffeeEmpty;
     
@@ -89,7 +93,10 @@ int main(void){
         
         // 処理タイプと量を取得する(処理のタイプと量は空白で分かれている)
         int actType = atoi(strtok(actStr, splitChar));
-        float quantity = atof(strtok(NULL, splitChar));
+        int quantity = atoi(strtok(NULL, splitChar));
+        if (quantity < minQuantity || maxQuantity < quantity) {
+            return EXIT_FAILURE;
+        }
         
         // 処理タイプに応じ、指定された量分の処理を行う
         switch (actType) {
@@ -112,4 +119,3 @@ int main(void){
     printf("%d", (int)CoffeeGetConsentration(&coffee, true));
     return EXIT_SUCCESS;
 }
-
