@@ -80,48 +80,37 @@ int main(void){
         // 移動ログ(無限ループ判定に使用する)
         int moveLog[BUFFER_SIZE] = {0};
         _Bool finished = false;
-        while (true) {
+        _Bool dead = false;
+        while (!finished && !dead) {
             if (num == goal) {
                 // ゴールについた場合
                 finished = true;
-                break;
             }else if (num < 1 || goal < num) {
                 // ゴールを越えた、あるいはスタート地点に戻ったりした場合
-                finished = false;
-                break;
+                dead = true;
             }else{
                 // それ以外
                 int moves = cells[num];
                 if (moves == 0) {
                     // これ以上動けない場合
-                    finished = false;
-                    break;
+                    dead = true;
                 }else{
                     num += moves;
-                    _Bool infinity = false;
                     int idx;
-                    for (idx = 0; idx < BUFFER_SIZE && moveLog[idx] != 0; idx++) {
+                    for (idx = 0; idx < BUFFER_SIZE && moveLog[idx] != 0 && !dead; idx++) {
                         if (num == moveLog[idx]) {
                             // 過去に行ったことのあるマスだった場合は無限ループに陥ったとみなしてゲームオーバー
-                            infinity = true;
-                            break;
+                            dead = true;
                         }
                     }
-                    if (infinity) {
-                        finished = false;
-                        break;
-                    }else{
+                    if (!dead) {
                         moveLog[idx] = num;
                     }
                 }
             }
         }
 
-        if (finished) {
-            puts("Yes");
-        }else{
-            puts("No");
-        }
+        puts (finished ? "Yes" : "No");
     }
 
     return EXIT_SUCCESS;

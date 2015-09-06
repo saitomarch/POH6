@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <array>
 #include <sstream>
 
 using namespace std;
@@ -33,18 +34,23 @@ int main(){
     // マスを取得する
     string cellsString;
     getline(cin, cellsString);
-    auto cells = splitStringToVector(cellsString, ' ');
+    auto tempCells = splitStringToVector(cellsString, ' ');
+    if (numOfCells != tempCells.size()) {
+        throw "The input value of cells and size of cells do not match.";
+    }
+    vector<int> cells;
+    for (auto cell : tempCells) {
+        cells.push_back(stoi(cell));
+    }
     const auto minCellNum = -100;
     const auto maxCellNum = 100;
     for (auto cell : cells) {
-        if (stoi(cell) < minCellNum || maxCellNum < stoi(cell)) {
+        if (cell < minCellNum || maxCellNum < cell) {
             throw "The value of cell must be " + to_string(minCellNum) + "..." + to_string(maxCellNum) + ".";
         }
     }
-
-    // 万一指定されたセルのサイズと実際のセルのサイズが一致していなかった場合は例外を投げる
-    if (numOfCells != cells.size()) {
-        throw "The input value of cells and size of cells do not match.";
+    if (cells.front() != 0 || cells.back() != 0) {
+        throw "The value of first cell and/or last cell must be 0.";
     }
 
     // 出目数を取得する
@@ -74,48 +80,38 @@ int main(){
         std::vector<int> moveLog;
 
         bool finished = false;
+        bool dead = false;
 
-        while (true) {
+        while (!finished && !dead) {
             if (num == goal) {
                 // ゴールに到達した場合
                 finished = true;
-                break;
             }else if (num < 1 || goal < num) {
                 // スタート地点に戻ったり、ゴールを越えてしまった場合
-                finished = false;
-                break;
+                dead = true;
             }else{
                 // それ以外
-                auto moves = stoi(cells.at(num));
+                auto moves = cells[num];
                 if (moves == 0) {
                     // これ以上進めない場合
-                    finished = false;
-                    break;
+                    dead = true;
                 }else{
                     // それ以外の場合。前に行ったことのあるマスなら無限ループに陥っているとみなしてゲームオーバーとする
                     num += moves;
-                    bool infinity = false;
                     for (auto moved : moveLog) {
                         if (num == moved) {
-                            infinity = true;
+                            dead = true;
                             break;
                         }
                     }
-                    if (infinity) {
-                        finished = false;
-                        break;
-                    }else{
+                    if (!dead) {
                         moveLog.push_back(num);
                     }
                 }
             }
         }
 
-        if (finished) {
-            cout << "Yes" << endl;
-        }else{
-            cout << "No" << endl;
-        }
+        cout << (finished ? "Yes" : "No") << endl;
     }
     return 0;
 }
