@@ -1,8 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-// 注意: paizaオンラインハッカソンでテストする場合はTsubameをMainに変更してください。
-public class Tsubame {
+public class Main {
     public static void main(String[] args) throws Exception {
         // 文字列を取得し、整数に変換する
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
