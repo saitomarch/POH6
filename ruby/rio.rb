@@ -25,8 +25,8 @@ class Coffee
         @powder -= quantity * @powder / total
     end
 
-    def getConsentration
-        return (@powder / getTotal) * 100.0
+    def getConsentration(asPercent)
+        return (@powder / getTotal) * (asPercent ? 100.0 : 1.0)
     end
 end
 
@@ -44,4 +44,4 @@ gets.to_i.times {
         coffee.taste(quantity)
     end
 }
-puts coffee.getConsentration.to_i
+puts coffee.getConsentration(true).to_i
