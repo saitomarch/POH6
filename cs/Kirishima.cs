@@ -2,6 +2,12 @@ using System;
 using System.Collections.Generic;
 
 public class Kirishima {
+    private enum GameStatus {
+        Current,
+        Finished,
+        Dead,
+    }
+
     public static void Main() {
         // マスの数を取得する
         int numOfCells = int.Parse(System.Console.ReadLine());
@@ -53,37 +59,37 @@ public class Kirishima {
 
             var moveLog = new List<int>();
             bool finished = false;
-            bool dead = false;
+            GameStatus status = GameStatus.Current;
 
-            while (!finished && !dead) {
+            while (status == GameStatus.Current) {
                 if (num == goal) {
                     // ゴールに到達した場合
-                    finished = true;
+                    status = GameStatus.Finished;
                 }else if(num < 1 || goal < num) {
                     // スタート地点に戻ったり、ゴールを越えてしまった場合
-                    dead = true;
+                    status = GameStatus.Dead;
                 }else{
                     // それ以外
                     int moves = cells[num];
                     if (moves == 0) {
                         // これ以上進めない場合
-                        dead = true;
+                        status = GameStatus.Dead;
                     }else{
                         // それ以外の場合、前に行ったことのあるマスならゲームオーバー
                         num += moves;
                         foreach (var moved in moveLog) {
                             if (num == moved) {
-                                dead = true;
+                                status = GameStatus.Dead;
                                 break;
                             }
                         }
-                        if (!dead) {
+                        if (status != GameStatus.Dead) {
                             moveLog.Add(num);
                         }
                     }
                 }
             }
-            System.Console.WriteLine(finished ? "Yes" : "No");
+            System.Console.WriteLine(status == GameStatus.Finished ? "Yes" : "No");
         }
     }
 }

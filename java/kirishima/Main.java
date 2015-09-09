@@ -3,6 +3,12 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Main {
+    private enum GameStatus {
+        CURRENT,
+        FINISHED,
+        DEAD,
+    }
+
     public static void main(String[] args) throws Exception {
         // マスの数を取得する
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -53,38 +59,37 @@ public class Main {
             }
 
             ArrayList<Integer> moveLog = new ArrayList<Integer>();
-            boolean finished = false;
-            boolean dead = false;
+            GameStatus status = GameStatus.CURRENT;
 
-            while (!finished && !dead) {
+            while (status == GameStatus.CURRENT) {
                 if (num == goal) {
                     // ゴールに到達した場合
-                    finished = true;
+                    status = GameStatus.FINISHED;
                 }else if(num < 1 || goal < num) {
                     // スタート地点に戻ったり、ゴールを越えてしまった場合
-                    dead = true;
+                    status = GameStatus.DEAD;
                 }else{
                     // それ以外
                     int moves = cells[num];
                     if (moves == 0) {
                         // これ以上進めない場合
-                        dead = true;
+                        status = GameStatus.DEAD;
                     }else{
                         // それ以外の場合、前に行ったことのあるマスならゲームオーバー
                         num += moves;
                         for (int moved : moveLog) {
                             if (num == moved) {
-                                dead = true;
+                                status = GameStatus.DEAD;
                                 break;
                             }
                         }
-                        if (!dead) {
+                        if (status != GameStatus.DEAD) {
                             moveLog.add(num);
                         }
                     }
                 }
             }
-            System.out.println(finished ? "Yes" : "No");
+            System.out.println(status == GameStatus.FINISHED ? "Yes" : "No");
         }
     }
 }
