@@ -77,39 +77,44 @@ int main(){
 
         std::vector<int> moveLog;
 
-        bool finished = false;
-        bool dead = false;
+        enum Status {
+            CURRENT = 0,
+            FINISHED,
+            DEAD,
+        };
 
-        while (!finished && !dead) {
+        auto status = CURRENT;
+
+        while (status == CURRENT) {
             if (num == goal) {
                 // ゴールに到達した場合
-                finished = true;
+                status = FINISHED;
             }else if (num < 1 || goal < num) {
                 // スタート地点に戻ったり、ゴールを越えてしまった場合
-                dead = true;
+                status = DEAD;
             }else{
                 // それ以外
                 auto moves = cells[num];
                 if (moves == 0) {
                     // これ以上進めない場合
-                    dead = true;
+                    status = DEAD;
                 }else{
                     // それ以外の場合。前に行ったことのあるマスなら無限ループに陥っているとみなしてゲームオーバーとする
                     num += moves;
                     for (auto moved : moveLog) {
                         if (num == moved) {
-                            dead = true;
+                            status = DEAD;
                             break;
                         }
                     }
-                    if (!dead) {
+                    if (status != DEAD) {
                         moveLog.push_back(num);
                     }
                 }
             }
         }
 
-        cout << (finished ? "Yes" : "No") << endl;
+        cout << (status == FINISHED ? "Yes" : "No") << endl;
     }
     return 0;
 }
