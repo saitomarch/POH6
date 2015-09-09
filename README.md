@@ -7,6 +7,7 @@
 * /cpp - C++
 * /cs - C#
 * /java - Java
+* /php - PHP
 * /python2 - Python 2.x
 * /ruby - Ruby
 
