@@ -7,6 +7,7 @@
 * /cpp - C++
 * /cs - C#
 * /java - Java
+* /perl - Perl (strict及びwarnings有効)
 * /php - PHP
 * /python2 - Python 2.x
 * /ruby - Ruby
@@ -17,7 +18,7 @@
 * rio - 六村リオミッションの回答例コード
 * kirishima - 霧島京子ミッションの回答例コード
 
-ただし、Javaについては以下のとおりになっています。
+ただし、Javaについてはクラスの関係上、以下のとおりになっています。
 
 * tsubame/Main.java
 * rio/Main.java
