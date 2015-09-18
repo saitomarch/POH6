@@ -18,6 +18,14 @@ vector<string> splitStringToVector(const string &str, const char sep) {
     return vec;
 }
 
+/// ラインを取得する
+/// @return 取得したラインの文字列
+string readLine() {
+    string str;
+    getline(cin, str);
+    return str;
+}
+
 /// コーヒーを定義する
 class Coffee {
 private:
@@ -68,9 +76,7 @@ public:
 
 int main(void){
     // 行数を取得する
-    string linesString;
-    getline(cin, linesString);
-    auto lines = stoi(linesString);
+    auto lines = stoi(readLine());
     const auto minLines = 1;
     const auto maxLines = 10;
     if (lines < minLines || maxLines < lines) {
@@ -97,10 +103,7 @@ int main(void){
             TASTE = 3,
         };
 
-        string actString;
-        getline(cin, actString);
-
-        auto actArr = splitStringToVector(actString, ' ');
+        auto actArr = splitStringToVector(readLine(), ' ');
         if (actArr.size() != COLUMN_SIZE) {
             throw "Invalid format of action inputted.";
         }

@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <array>
 #include <sstream>
 
 using namespace std;
@@ -19,11 +18,17 @@ vector<string> splitStringToVector(const string &str, char sep) {
     return vec;
 }
 
+/// ラインを取得する
+/// @return 取得したラインの文字列
+string readLine() {
+    string str;
+    getline(cin, str);
+    return str;
+}
+
 int main(){
     // マスの数を取得する
-    string numOfCellsString;
-    getline(cin, numOfCellsString);
-    const auto numOfCells = stoi(numOfCellsString);
+    const auto numOfCells = stoi(readLine());
     const auto minNumOfCells = 2;
     const auto maxNumOfCells = 100;
     if (numOfCells < minNumOfCells || maxNumOfCells < numOfCells) {
@@ -32,9 +37,7 @@ int main(){
     auto goal = numOfCells - 1;
 
     // マスを取得する
-    string cellsString;
-    getline(cin, cellsString);
-    auto tempCells = splitStringToVector(cellsString, ' ');
+    auto tempCells = splitStringToVector(readLine(), ' ');
     if (numOfCells != tempCells.size()) {
         throw "The input value of cells and size of cells do not match.";
     }
@@ -52,9 +55,7 @@ int main(){
     }
 
     // 出目数を取得する
-    string actsString;
-    getline(cin, actsString);
-    auto acts = stoi(actsString);
+    auto acts = stoi(readLine());
     const auto minActs = 0;
     const auto maxActs = 100;
     if (acts < minActs || maxActs < acts) {
@@ -67,10 +68,7 @@ int main(){
     // 出目の処理を行う
     for (auto act = 0; act < acts; act++) {
         // 出目を取得する
-        string numString;
-        getline(cin, numString);
-
-        auto num = stoi(numString);
+        auto num = stoi(readLine());
         if (num < minActNum || maxActNum < num) {
             throw "The value of act must be " + to_string(minActNum) + "..." + to_string(maxActNum) + ".";
         }
