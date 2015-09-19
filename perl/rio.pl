@@ -2,9 +2,6 @@ use strict;
 use warnings;
 
 package Coffee; {
-    my $powder;
-    my $water;
-
     sub new() {
         my $class = shift;
         my $self = {
