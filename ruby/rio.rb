@@ -1,7 +1,4 @@
 class Coffee
-    @water
-    @powder
-
     def initialize
         @water = 0.0
         @powder = 0.0
