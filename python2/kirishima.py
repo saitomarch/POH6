@@ -2,25 +2,29 @@ numOfCells = int(raw_input())
 goal = numOfCells - 1
 cells = raw_input().strip().split(" ")
 
+CURRENT = 0
+FINISHED = 1
+DEAD = 2
+
 for idx in range(0, int(raw_input())):
     actNum = int(raw_input())
     moveLog = []
-    finished = False
-    dead = False
-    while finished == False and dead == False:
+    status = CURRENT
+    while status == CURRENT:
         if actNum == goal:
-            finished = True
+            status  = FINISHED
         elif actNum < 1 or goal < actNum:
-            dead = True
+            status = DEAD
         else:
             moves = int(cells[actNum])
             if moves == 0:
-                dead = True
+                status = DEAD
             else:
                 actNum += moves
                 for movedNum in moveLog:
                     if actNum == movedNum:
-                        dead = True
-                if dead == False:
+                        status = dead
+                        break
+                if status != DEAD
                     moveLog.append(actNum)
-    print ("Yes" if finished else "No")
+    print ("Yes" if status == FINISHED else "No")

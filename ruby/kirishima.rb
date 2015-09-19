@@ -5,29 +5,35 @@ cells = gets.strip.split(" ")
 gets.to_i.times {
     actNum = gets.to_i
     moveLog = Array.new
-    finished = dead = false
-    while !finished && !dead do
+
+    CURRENT = 0
+    FINISHED = 1
+    DEAD = 2
+
+    status = CURRENT
+
+    while status == CURRENT do
         if actNum == goal then
-            finished = true
+            status = FINISHED
         elsif actNum < 1 || goal < actNum then
-            dead = true
+            status = DEAD
         else
             moves = cells[actNum].to_i
             if moves == 0 then
-                dead = true
+                status = DEAD
             else
                 actNum += moves
                 moveLog.each {|movedNum|
                     if actNum == movedNum then
-                        dead = true
+                        status = DEAD
                         break
                     end
                 }
-                if !dead then
+                if status != DEAD then
                     moveLog.push(actNum)
                 end
             end
         end
     end
-    puts finished ? "Yes" : "No"
+    puts status == FINISHED ? "Yes" : "No"
 }
