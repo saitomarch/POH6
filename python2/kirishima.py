@@ -23,7 +23,7 @@ for idx in range(0, int(raw_input())):
                 actNum += moves
                 for movedNum in moveLog:
                     if actNum == movedNum:
-                        status = dead
+                        status = DEAD
                         break
                 if status != DEAD
                     moveLog.append(actNum)

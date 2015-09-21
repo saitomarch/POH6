@@ -2,13 +2,13 @@ numOfCells = gets.to_i
 goal = numOfCells - 1
 cells = gets.strip.split(" ")
 
+CURRENT = 0
+FINISHED = 1
+DEAD = 2
+
 gets.to_i.times {
     actNum = gets.to_i
     moveLog = Array.new
-
-    CURRENT = 0
-    FINISHED = 1
-    DEAD = 2
 
     status = CURRENT
 
