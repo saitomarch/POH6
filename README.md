@@ -7,7 +7,8 @@
 * /cpp - C++
 * /cs - C#
 * /java - Java
-* /objc_gnustep - Objective-C (non-ARC, GNUStep版)
+* /objc - Objective-C (ARC, Cocoa版 ※このコードはARC及びModern Objective-C Syntaxを使用しているため、POH6では正常にテストが通りません。POH6でテストする場合はobjc_gnustepをご利用下さい)
+* /objc_gnustep - Objective-C (non-ARC, GNUstep版)
 * /perl - Perl (strict及びwarnings有効)
 * /php - PHP
 * /python2 - Python 2.x
