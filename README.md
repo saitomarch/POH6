@@ -7,6 +7,7 @@
 * /cpp - C++
 * /cs - C#
 * /java - Java
+* /objc_gnustep - Objective-C (non-ARC, GNUStep版)
 * /perl - Perl (strict及びwarnings有効)
 * /php - PHP
 * /python2 - Python 2.x
