@@ -55,7 +55,7 @@ static void CoffeeTaste(Coffee *coffee, float quantity) {
 /// @param str 改行コードを除去する対象の文字列
 static void removeReturnCode(char *str) {
     if (strchr(str, '\n')) {
-        str[strlen(str) - 1] = '\n';
+        str[strlen(str) - 1] = '\0';
     }
 }
 
